@@ -1,0 +1,19 @@
+{
+  "name": "cookbook",
+  "version": "1.0.0",
+  "description": "Just cook it",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dbl7/cookbook.git"
+  },
+  "author": "Andrei Lukashenka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dbl7/cookbook/issues"
+  },
+  "homepage": "https://github.com/dbl7/cookbook#readme"
+}
