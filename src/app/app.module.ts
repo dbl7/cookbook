@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { AppComponent } from './app.component';
+
 import { AppRoutingModule } from './app-routing.module';
 import { RecipeModule } from 'src/app/recipe/recipe.module';
 import { PlanningModule } from 'src/app/planning/planning.module';
-
-import { AppComponent } from './app.component';
+import { GroceryModule } from 'src/app/grocery/grocery.module';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { AppComponent } from './app.component';
     RecipeModule,
     AppRoutingModule,
     PlanningModule,
+    GroceryModule,
   ],
   declarations: [
     AppComponent,
