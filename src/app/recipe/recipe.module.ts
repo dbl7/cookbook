@@ -4,7 +4,7 @@ import { RecipeRoutingModule } from './recipe-routing.module';
 import { RecipesComponent } from './recipes/recipes.component';
 
 @NgModule({
-    imports: [RecipeRoutingModule],
-    declarations: [RecipesComponent],
+  imports: [RecipeRoutingModule],
+  declarations: [RecipesComponent],
 })
 export class RecipeModule {}

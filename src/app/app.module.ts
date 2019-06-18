@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { RecipeModule } from 'src/app/recipe/recipe.module';
 import { AppRoutingModule } from './app-routing.module';
+import { RecipeModule } from 'src/app/recipe/recipe.module';
+import { PlanningModule } from 'src/app/planning/planning.module';
 
 import { AppComponent } from './app.component';
 
@@ -11,6 +12,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     RecipeModule,
     AppRoutingModule,
+    PlanningModule,
   ],
   declarations: [
     AppComponent,
