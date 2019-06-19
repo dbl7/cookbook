@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RecipeModule } from 'src/app/recipe/recipe.module';
 import { PlanningModule } from 'src/app/planning/planning.module';
 import { GroceryModule } from 'src/app/grocery/grocery.module';
+import { NavigationComponent } from 'src/app/navigation/navigation.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { GroceryModule } from 'src/app/grocery/grocery.module';
   ],
   declarations: [
     AppComponent,
+    NavigationComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
