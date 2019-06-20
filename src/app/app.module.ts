@@ -8,10 +8,12 @@ import { RecipeModule } from 'src/app/recipe/recipe.module';
 import { PlanningModule } from 'src/app/planning/planning.module';
 import { GroceryModule } from 'src/app/grocery/grocery.module';
 import { NavigationComponent } from 'src/app/navigation/navigation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RecipeModule,
     AppRoutingModule,
     PlanningModule,
