@@ -1,0 +1,29 @@
+@import "colors.scss";
+
+.navigation {
+    display: grid;
+    grid-template-rows: 76px auto 20px;
+    width: 200px;
+    height: 100%;
+    padding: 60px 38px 34px;
+}
+
+.navigation__title {
+    font-size: 24px;
+    margin: 0;
+}
+
+.navigation__links {
+    display: grid;
+    grid-template-rows: repeat(3, 16px);
+    grid-row-gap: 20px;
+
+    a {
+        text-decoration: none;
+        color: $light-gray-1;
+
+        &.navigation--active {
+            color: $orange-1;
+        }
+    }
+}
