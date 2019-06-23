@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firestore: {
+    apiKey: 'AIzaSyBOY0-wxronEhBH8lMd2z8uCBZMQu_oly0',
+    authDomain: 'cookbook-develop.firebaseapp.com',
+    databaseURL: 'https://cookbook-develop.firebaseio.com',
+    projectId: 'cookbook-develop',
+    storageBucket: 'cookbook-develop.appspot.com',
+    messagingSenderId: '467633736946',
+    appId: '1:467633736946:web:b802bfea7fce41f7',
+  },
 };
 
 /*

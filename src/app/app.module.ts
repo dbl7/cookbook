@@ -1,23 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
-import { RecipeModule } from 'src/app/recipe/recipe.module';
-import { PlanningModule } from 'src/app/planning/planning.module';
-import { GroceryModule } from 'src/app/grocery/grocery.module';
-import { NavigationComponent } from 'src/app/navigation/navigation.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppComponent } from './app.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { environment } from '../environments/environment';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RecipeModule,
     AppRoutingModule,
-    PlanningModule,
-    GroceryModule,
+    AngularFireModule.initializeApp(environment.firestore),
+    AngularFireAuthModule,
   ],
   declarations: [
     AppComponent,
