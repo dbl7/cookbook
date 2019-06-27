@@ -27,7 +27,7 @@ export class SignUpComponent implements OnInit {
   private initSignUpForm(): void {
     this.signUpForm = this.formBuilder.group({
       displayName: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
