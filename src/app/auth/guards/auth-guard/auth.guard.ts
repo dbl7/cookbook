@@ -3,20 +3,19 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   CanActivate,
-  CanLoad,
   Router,
   Route,
   UrlSegment,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap, take, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { AuthService } from '../../auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanLoad {
+export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -24,19 +23,12 @@ export class AuthGuard implements CanActivate, CanLoad {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.isAuthenticated().pipe(
-      tap(isAuthenticated => isAuthenticated || this.router.parseUrl('/auth/login')),
-    );
-  }
-
-  canLoad(route: Route, segments: UrlSegment[]) {
-    return this.isAuthenticated().pipe(
-      tap(isAuthenticated => isAuthenticated || this.router.navigate(['/auth', 'login'])),
+      map(isAuthenticated => isAuthenticated || this.router.parseUrl('/auth/login')),
     );
   }
 
   isAuthenticated(): Observable<boolean> {
     return this.authService.user$.pipe(
-      take(1),
       map(user => !!user),
     );
   }

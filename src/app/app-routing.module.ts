@@ -2,37 +2,40 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 
 import { AuthGuard } from './auth/guards/auth-guard/auth.guard';
+import { LoggedInGuard } from './auth/guards/loggen-in-guard/logged-in.guard';
+
+import { AuthLayoutComponent } from './auth/auth-layout/auth-layout.component';
+import { RecipesComponent } from './recipe/recipes/recipes.component';
+import { MealPlanningComponent } from './planning/meal-planning/meal-planning.component';
+import { GroceryListComponent } from './grocery/grocery-list/grocery-list.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+    component: AuthLayoutComponent,
+    canActivate: [LoggedInGuard],
   },
   {
     path: 'recipes',
-    loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule),
-    canLoad: [AuthGuard],
+    component: RecipesComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'meal-planning',
-    loadChildren: () => import('./planning/planning.module').then(m => m.PlanningModule),
-    canLoad: [AuthGuard],
+    component: MealPlanningComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'grocery-list',
-    loadChildren: () => import('./grocery/grocery.module').then(m => m.GroceryModule),
-    canLoad: [AuthGuard],
-  }
+    component: GroceryListComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,
-    {
-      preloadingStrategy: PreloadAllModules,
-    }
-  )],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -39,7 +39,6 @@ export class LoggedInGuard implements CanActivate, CanActivateChild {
 
   isAuthenticated(): Observable<boolean> {
     return this.authService.user$.pipe(
-      take(1),
       map(user => !!user),
     );
   }
