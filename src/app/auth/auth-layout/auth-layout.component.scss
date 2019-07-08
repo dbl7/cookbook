@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  flex: 1;
+
+  .auth-layout-wrapper {
+    min-height: 0;
+  }
+
+  .auth-layout-content {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    padding: 60px 15px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+}
