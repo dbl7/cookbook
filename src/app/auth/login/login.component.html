@@ -19,8 +19,10 @@
       name="password"
       [type]="showPassword ? 'text' : 'password'"
     />
-    <mat-icon matSuffix
-      (click)="showPassword = !showPassword">
+    <mat-icon
+      matSuffix
+      (click)="showPassword = !showPassword"
+    >
       {{ showPassword ? 'visibility_off' : 'visibility' }}
     </mat-icon>
     <mat-error *ngIf="hasError('password', 'required')">Please enter your password</mat-error>

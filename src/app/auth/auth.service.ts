@@ -2,33 +2,40 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 
+
+interface UserInfo {
+  email: string;
+  password: string;
+  displayName?: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  user$: Observable<firebase.User>;
+  public user$: Observable<firebase.User>;
 
   constructor(private firebaseAuth: AngularFireAuth) {
     this.user$ = firebaseAuth.authState;
-   }
+  }
 
-  login({ email, password }) {
+  public login({ email, password }: UserInfo): Promise<firebase.auth.UserCredential> {
     return this.firebaseAuth
       .auth
       .signInWithEmailAndPassword(email, password);
   }
 
-  logout() {
+  public logout(): Promise<void> {
     return this.firebaseAuth.auth.signOut();
   }
 
-  signUp({ email, password, displayName }) {
+  public signUp({ email, password, displayName }: UserInfo): Promise<void | firebase.auth.UserCredential> {
     return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then(() =>
-        this.firebaseAuth.auth.currentUser.updateProfile({
-            displayName,
-            photoURL: '',
-          }),
-        );
+      .then(() => {
+        return this.firebaseAuth.auth.currentUser.updateProfile({
+          displayName,
+          photoURL: '',
+        });
+      });
   }
 }
