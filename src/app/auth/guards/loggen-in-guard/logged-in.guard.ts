@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  RouterStateSnapshot,
   Router,
   CanActivate,
   CanActivateChild,
 } from '@angular/router';
-import { map, take } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { AuthService } from '../../auth.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoggedInGuard implements CanActivate, CanActivateChild {
   constructor(
@@ -20,24 +19,20 @@ export class LoggedInGuard implements CanActivate, CanActivateChild {
     private authService: AuthService,
   ) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  public canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
     return this.isAuthenticated().pipe(
-      map(isAuthenticated => {
-        if (isAuthenticated) {
-          this.router.navigate(['/']);
-          return false;
-        }
-
-        return true;
+      tap(isAuthenticated => {
+        isAuthenticated && this.router.parseUrl('/');
       }),
+      map(isAuthenticated => !!isAuthenticated),
     );
   }
 
-  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.canActivate(route, state);
+  public canActivateChild(route: ActivatedRouteSnapshot): Observable<boolean> {
+    return this.canActivate(route);
   }
 
-  isAuthenticated(): Observable<boolean> {
+  public isAuthenticated(): Observable<boolean> {
     return this.authService.user$.pipe(
       map(user => !!user),
     );

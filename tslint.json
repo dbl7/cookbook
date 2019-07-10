@@ -31,15 +31,20 @@
       true,
       140
     ],
-    "member-access": false,
+    "member-access": true,
     "member-ordering": [
       true,
       {
         "order": [
           "static-field",
-          "instance-field",
           "static-method",
-          "instance-method"
+          "public-instance-field",
+          "protected-instance-field",
+          "private-instance-field",
+          "public-constructor",
+          "public-instance-method",
+          "protected-instance-method",
+          "private-instance-method"
         ]
       }
     ],
@@ -53,9 +58,12 @@
       "trace"
     ],
     "no-empty": false,
-    "no-inferrable-types": [
+    "typedef": [
       true,
-      "ignore-params"
+      "call-signature",
+      "parameter",
+      "property-declaration",
+      "member-variable-declaration"
     ],
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
@@ -72,7 +80,20 @@
       true,
       "single"
     ],
-    "trailing-comma": false,
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+          "imports": "always",
+          "exports": "never",
+          "functions": "ignore",
+          "objects": "always",
+          "arrays": "always",
+          "typeLiterals": "ignore"
+        },
+        "esSpecCompliant": true
+      }
+    ],
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,
@@ -83,8 +104,17 @@
     "no-outputs-metadata-property": true,
     "template-banana-in-box": true,
     "template-no-negated-async": true,
-    "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true
+    "interface-over-type-literal": true,
+    "use-pipe-transform-interface": true,
+    "no-construct": true,
+    "prefer-const": true,
+    "no-unnecessary-initializer": true,
+    "no-unused-expression": [
+      true,
+      "allow-fast-null-checks"
+    ],
+    "no-unused-variable": true,
+    "no-any": true
   },
   "rulesDirectory": [
     "codelyzer"
