@@ -10,7 +10,7 @@ export class AuthService {
 
   constructor(private firebaseAuth: AngularFireAuth) {
     this.user$ = firebaseAuth.authState;
-   }
+  }
 
   login({ email, password }) {
     return this.firebaseAuth
