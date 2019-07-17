@@ -5,9 +5,10 @@ import { AuthGuard } from './auth/guards/auth-guard/auth.guard';
 import { LoggedInGuard } from './auth/guards/loggen-in-guard/logged-in.guard';
 
 import { AuthLayoutComponent } from './auth/auth-layout/auth-layout.component';
+import { LandingComponent } from 'src/app/landing/landing.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  { path: '', component: LandingComponent },
   {
     path: 'auth',
     component: AuthLayoutComponent,
