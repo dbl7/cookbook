@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter, switchMap } from 'rxjs/operators';
+
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from './login/login.component';
 
 interface UserInfo {
   email: string;
@@ -15,7 +20,11 @@ interface UserInfo {
 export class AuthService {
   public user$: Observable<firebase.User>;
 
-  constructor(private firebaseAuth: AngularFireAuth) {
+  constructor(
+    private firebaseAuth: AngularFireAuth,
+    public dialogRef: MatDialog,
+    private router: Router,
+  ) {
     this.user$ = firebaseAuth.authState;
   }
 
@@ -25,10 +34,16 @@ export class AuthService {
     );
   }
 
-  public login({ email, password }: UserInfo): Promise<firebase.auth.UserCredential> {
-    return this.firebaseAuth
-      .auth
-      .signInWithEmailAndPassword(email, password);
+  public login(): void {
+    this.dialogRef.open(LoginComponent)
+    .afterClosed()
+    .pipe(
+      filter(user => !!user),
+      switchMap(({ email, password }: UserInfo) => {
+        return this.firebaseAuth.auth.signInWithEmailAndPassword(email, password);
+      }),
+    )
+    .subscribe(() => this.router.navigate(['/recipes']));
   }
 
   public logout(): Promise<void> {
