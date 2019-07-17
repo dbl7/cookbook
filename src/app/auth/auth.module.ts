@@ -7,14 +7,12 @@ import { AngularMaterialModule } from '../shared/angular-material.module';
 import { AuthRoutingModule } from './auth-routing.module';
 
 import { LoginComponent } from './login/login.component';
-import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    AuthLayoutComponent,
     SignUpComponent,
     LogoutComponent,
   ],
