@@ -11,8 +11,8 @@ import { AuthService } from '../auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  showPassword = false;
+  public loginForm: FormGroup;
+  public showPassword: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -20,8 +20,17 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.initLoginForm();
+  }
+
+  public onSubmit(): void {
+    this.authService.login(this.loginForm.value)
+      .then(() => this.router.navigate(['/']));
+  }
+
+  public hasError(controlName: string, errorName: string): boolean {
+    return this.loginForm.get(controlName).hasError(errorName);
   }
 
   private initLoginForm(): void {
@@ -29,14 +38,5 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
-  }
-
-  onSubmit(): void {
-    this.authService.login(this.loginForm.value)
-      .then(() => this.router.navigate(['/']));
-  }
-
-  hasError(controlName: string, errorName: string): boolean {
-    return this.loginForm.get(controlName).hasError(errorName);
   }
 }

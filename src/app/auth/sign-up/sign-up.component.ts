@@ -11,8 +11,8 @@ import { AuthService } from '../auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpComponent implements OnInit {
-  signUpForm: FormGroup;
-  showPassword = false;
+  public signUpForm: FormGroup;
+  public showPassword: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -20,8 +20,17 @@ export class SignUpComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.initSignUpForm();
+  }
+
+  public onSubmit(): void {
+    this.authService.signUp(this.signUpForm.value)
+      .then(() => this.router.navigate(['/']));
+  }
+
+  public hasError(controlName: string, errorName: string): boolean {
+    return this.signUpForm.get(controlName).hasError(errorName);
   }
 
   private initSignUpForm(): void {
@@ -30,14 +39,5 @@ export class SignUpComponent implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
-  }
-
-  onSubmit(): void {
-    this.authService.signUp(this.signUpForm.value)
-      .then(() => this.router.navigate(['/']));
-  }
-
-  hasError(controlName: string, errorName: string): boolean {
-    return this.signUpForm.get(controlName).hasError(errorName);
   }
 }
