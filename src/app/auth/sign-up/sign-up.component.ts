@@ -1,8 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
-import { AuthService } from '../auth.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'cb-sign-up',
@@ -15,9 +14,8 @@ export class SignUpComponent implements OnInit {
   public showPassword: boolean = false;
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
     private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<SignUpComponent>,
   ) {}
 
   public ngOnInit(): void {
@@ -25,8 +23,7 @@ export class SignUpComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    this.authService.signUp(this.signUpForm.value)
-      .then(() => this.router.navigate(['/']));
+    this.dialogRef.close(this.signUpForm.value);
   }
 
   public hasError(controlName: string, errorName: string): boolean {

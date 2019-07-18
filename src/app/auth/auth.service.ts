@@ -7,6 +7,7 @@ import { map, filter, switchMap } from 'rxjs/operators';
 
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 interface UserInfo {
   email: string;
@@ -46,17 +47,25 @@ export class AuthService {
     .subscribe(() => this.router.navigate(['/recipes']));
   }
 
-  public logout(): Promise<void> {
-    return this.firebaseAuth.auth.signOut();
+  public signUp(): void {
+    this.dialogRef.open(SignUpComponent)
+    .afterClosed()
+    .pipe(
+      filter(user => !!user),
+      switchMap(({ email, password, displayName }: UserInfo) => {
+        return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
+          .then(() => {
+            return this.firebaseAuth.auth.currentUser.updateProfile({
+              displayName,
+              photoURL: '',
+            });
+          });
+      })
+    )
+    .subscribe(() => this.router.navigate(['/recipes']));
   }
 
-  public signUp({ email, password, displayName }: UserInfo): Promise<void | firebase.auth.UserCredential> {
-    return this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        return this.firebaseAuth.auth.currentUser.updateProfile({
-          displayName,
-          photoURL: '',
-        });
-      });
+  public logout(): Promise<void> {
+    return this.firebaseAuth.auth.signOut();
   }
 }

@@ -24,4 +24,8 @@ export class LandingComponent implements OnInit {
   public login(): void {
     this.authService.login();
   }
+
+  public signUp(): void {
+    this.authService.signUp();
+  }
 }
