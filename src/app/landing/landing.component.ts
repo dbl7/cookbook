@@ -17,7 +17,7 @@ export class LandingComponent implements OnInit {
 
   public ngOnInit(): void {
     this.authService.isAuthenticated()
-      .pipe(filter(isAuthonticated => !!isAuthonticated))
+      .pipe(filter(isAuthenticated => !!isAuthenticated))
       .subscribe(() => this.router.navigate(['/recipes']));
   }
 

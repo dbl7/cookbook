@@ -9,11 +9,11 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  public isAuthenticated: Observable<boolean>;
+  public isAuthenticated$: Observable<boolean>;
 
   constructor(private authService: AuthService) {}
 
   public ngOnInit(): void {
-    this.isAuthenticated = this.authService.isAuthenticated();
+    this.isAuthenticated$ = this.authService.isAuthenticated();
   }
 }
