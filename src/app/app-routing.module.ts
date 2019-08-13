@@ -1,18 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from './auth/guards/auth-guard/auth.guard';
-import { LoggedInGuard } from './auth/guards/loggen-in-guard/logged-in.guard';
-
-import { AuthLayoutComponent } from './auth/auth-layout/auth-layout.component';
+import { LandingComponent } from 'src/app/landing/landing.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
-  {
-    path: 'auth',
-    component: AuthLayoutComponent,
-    canActivate: [LoggedInGuard],
-  },
+  { path: '', component: LandingComponent },
 ];
 
 @NgModule({

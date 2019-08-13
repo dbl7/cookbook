@@ -14,8 +14,8 @@ export class LogoutComponent implements OnInit {
     private zone: NgZone,
   ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.authService.logout()
-      .then(() => this.zone.run(() => this.router.navigate(['/auth/login'])));
+      .then(() => this.zone.run(() => this.router.navigate(['/'])));
   }
 }

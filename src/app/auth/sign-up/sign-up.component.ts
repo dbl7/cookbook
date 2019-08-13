@@ -1,8 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
-import { AuthService } from '../auth.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'cb-sign-up',
@@ -11,17 +10,24 @@ import { AuthService } from '../auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpComponent implements OnInit {
-  signUpForm: FormGroup;
-  showPassword = false;
+  public signUpForm: FormGroup;
+  public showPassword: boolean = false;
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
     private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<SignUpComponent>,
   ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.initSignUpForm();
+  }
+
+  public onSubmit(): void {
+    this.dialogRef.close(this.signUpForm.value);
+  }
+
+  public hasError(controlName: string, errorName: string): boolean {
+    return this.signUpForm.get(controlName).hasError(errorName);
   }
 
   private initSignUpForm(): void {
@@ -30,14 +36,5 @@ export class SignUpComponent implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
-  }
-
-  onSubmit(): void {
-    this.authService.signUp(this.signUpForm.value)
-      .then(() => this.router.navigate(['/']));
-  }
-
-  hasError(controlName: string, errorName: string): boolean {
-    return this.signUpForm.get(controlName).hasError(errorName);
   }
 }

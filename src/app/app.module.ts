@@ -11,8 +11,9 @@ import { PlanningModule } from './planning/planning.module';
 import { GroceryModule } from './grocery/grocery.module';
 
 import { AppComponent } from './app.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { environment } from '../environments/environment';
+import { NavigationComponent } from 'src/app/navigation/navigation.component';
+import { environment } from 'src/environments/environment';
+import { LandingComponent } from 'src/app/landing/landing.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { environment } from '../environments/environment';
   declarations: [
     AppComponent,
     NavigationComponent,
+    LandingComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

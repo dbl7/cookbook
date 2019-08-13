@@ -5,9 +5,9 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
-import { AuthService } from '../../auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,16 +19,10 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   public canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    return this.isAuthenticated().pipe(
+    return this.authService.isAuthenticated().pipe(
       tap(isAuthenticated => {
-        !isAuthenticated && this.router.parseUrl('/auth/login');
+        !isAuthenticated && this.router.parseUrl('/');
       }),
-    );
-  }
-
-  public isAuthenticated(): Observable<boolean> {
-    return this.authService.user$.pipe(
-      map(user => !!user),
     );
   }
 }

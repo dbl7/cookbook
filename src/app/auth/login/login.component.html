@@ -17,13 +17,13 @@
       matInput
       formControlName="password"
       name="password"
-      [type]="showPassword ? 'text' : 'password'"
+      [type]="isShowPassword ? 'text' : 'password'"
     />
     <mat-icon
       matSuffix
-      (click)="showPassword = !showPassword"
+      (click)="isShowPassword = !isShowPassword"
     >
-      {{ showPassword ? 'visibility_off' : 'visibility' }}
+      {{ isShowPassword ? 'visibility_off' : 'visibility' }}
     </mat-icon>
     <mat-error *ngIf="hasError('password', 'required')">Please enter your password</mat-error>
   </mat-form-field>

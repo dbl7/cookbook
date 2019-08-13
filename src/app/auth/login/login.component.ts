@@ -1,8 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
-import { AuthService } from '../auth.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'cb-login',
@@ -11,17 +10,24 @@ import { AuthService } from '../auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  showPassword = false;
+  public loginForm: FormGroup;
+  public isShowPassword: boolean = false;
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
     private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<LoginComponent>,
   ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.initLoginForm();
+  }
+
+  public onSubmit(): void {
+    this.dialogRef.close(this.loginForm.value);
+  }
+
+  public hasError(controlName: string, errorName: string): boolean {
+    return this.loginForm.get(controlName).hasError(errorName);
   }
 
   private initLoginForm(): void {
@@ -29,14 +35,5 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
-  }
-
-  onSubmit(): void {
-    this.authService.login(this.loginForm.value)
-      .then(() => this.router.navigate(['/']));
-  }
-
-  hasError(controlName: string, errorName: string): boolean {
-    return this.loginForm.get(controlName).hasError(errorName);
   }
 }
