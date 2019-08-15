@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { filter } from 'rxjs/operators';
+import { untilComponentDestroyed } from 'src/app/shared/helpers/until-component-destroyed';
 
 @Component({
   selector: 'cb-landing',
@@ -17,7 +18,10 @@ export class LandingComponent implements OnInit {
 
   public ngOnInit(): void {
     this.authService.isAuthenticated()
-      .pipe(filter(isAuthenticated => !!isAuthenticated))
+      .pipe(
+        filter(isAuthenticated => !!isAuthenticated),
+        untilComponentDestroyed(this),
+      )
       .subscribe(() => this.router.navigate(['/recipes']));
   }
 
